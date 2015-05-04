@@ -1,0 +1,21 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE project PUBLIC "-//audacityproject-1.3.0//DTD//EN" "http://audacity.sourceforge.net/xml/audacityproject-1.3.0.dtd" >
+<project xmlns="http://audacity.sourceforge.net/xml/" projname="BridgeRegan_data" version="1.3.0" audacityversion="2.0.6" sel0="0.0000000000" sel1="0.0000000000" vpos="0" h="0.0000000000" zoom="86.1328125000" rate="44100.0" snapto="off" selectionformat="hh:mm:ss + milliseconds">
+	<tags/>
+	<wavetrack name="Audio Track" channel="2" linked="0" mute="0" solo="0" height="150" minimized="0" isSelected="0" rate="44100" gain="1.0" pan="0.0">
+		<waveclip offset="0.00000000">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="491520">
+				<waveblock start="0">
+					<simpleblockfile filename="e0000f8e.au" len="155136" min="-0.268158" max="0.224945" rms="0.0407"/>
+				</waveblock>
+				<waveblock start="155136">
+					<simpleblockfile filename="e0000f18.au" len="193792" min="-0.327332" max="0.351013" rms="0.063148"/>
+				</waveblock>
+				<waveblock start="348928">
+					<simpleblockfile filename="e0000a67.au" len="142592" min="-0.29068" max="0.3862" rms="0.045393"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+</project>

@@ -3,8 +3,8 @@ clear all;
 close all;
 format shorteng;
 
-SampRate = 44100;
-% SampRate = 36000;
+%SampRate = 44100;
+SampRate = 36000;
 
 TimeLength = 2;
 Samples = TimeLength * SampRate;

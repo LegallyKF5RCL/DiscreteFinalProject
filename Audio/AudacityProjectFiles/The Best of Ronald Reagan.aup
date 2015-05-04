@@ -1,0 +1,27 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE project PUBLIC "-//audacityproject-1.3.0//DTD//EN" "http://audacity.sourceforge.net/xml/audacityproject-1.3.0.dtd" >
+<project xmlns="http://audacity.sourceforge.net/xml/" projname="The Best of Ronald Reagan_data" version="1.3.0" audacityversion="2.0.6" sel0="0.0000000000" sel1="60.0770000000" vpos="0" h="0.0000000000" zoom="156.1775086211" rate="44100.0" snapto="off" selectionformat="hh:mm:ss + milliseconds">
+	<tags>
+		<tag name="major_brand" value="mp42"/>
+		<tag name="Encoding time" value="2014-08-16 16:33:59"/>
+		<tag name="Software" value="Lavf53.32.100"/>
+		<tag name="compatible_brands" value="isommp42"/>
+		<tag name="minor_version" value="0"/>
+	</tags>
+	<wavetrack name="The Best of Ronald Reagan" channel="2" linked="0" mute="0" solo="0" height="150" minimized="0" isSelected="0" rate="44100" gain="1.0" pan="0.0">
+		<waveclip offset="0.00000000">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="494714">
+				<waveblock start="0">
+					<simpleblockfile filename="e0000395.au" len="144316" min="-0.939968" max="0.896821" rms="0.176101"/>
+				</waveblock>
+				<waveblock start="144316">
+					<simpleblockfile filename="e0000f7d.au" len="175199" min="-0.855077" max="0.892693" rms="0.171514"/>
+				</waveblock>
+				<waveblock start="319515">
+					<simpleblockfile filename="e00005fa.au" len="175199" min="-0.903528" max="0.903693" rms="0.185358"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+</project>

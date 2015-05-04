@@ -3,8 +3,8 @@ clear all;
 close all;
 format shorteng;
 
-SampRate = 44100;
-% SampRate = 36000;
+% SampRate = 44100;
+SampRate = 36000;
 
 FilePointer = 'C:\Users\KF5RCL\Documents\MATLAB\chirp.wav';
 
