@@ -6,7 +6,7 @@ format shorteng;
 FPChirpIdeal = 'C:\Users\KF5RCL\Desktop\MyStuff\Classes\Discrete\DiscreteFinalProject\Audio\AudioTracks\Chirp.wav';
 FPChirpRec = 'C:\Users\KF5RCL\Desktop\MyStuff\Classes\Discrete\DiscreteFinalProject\Audio\AudioTracks\Bridge\BridgeChirp.wav';
 % FPNoise = 'C:\Users\KF5RCL\Desktop\MyStuff\Classes\Discrete\DiscreteFinalProject\Audio\AudioTracks\Bridge\NoiseAt44k_Bridge.wav';
-FPSignal = 'C:\Users\KF5RCL\Desktop\MyStuff\Classes\Discrete\DiscreteFinalProject\Audio\AudioTracks\Bridge\BridgeRegan.wav';
+FPSignal = 'C:\Users\KF5RCL\Desktop\MyStuff\Classes\Discrete\DiscreteFinalProject\Audio\AudioTracks\Classroom\ClassroomRegan2.wav';
 FPOriginal = 'C:\Users\KF5RCL\Desktop\MyStuff\Classes\Discrete\DiscreteFinalProject\Audio\AudioTracks\The Best of Ronald Reagan.wav';
 
 [ChirpIdeal44, RecordRate] = audioread(FPChirpIdeal);
@@ -22,17 +22,17 @@ Fs = 36000;         %Sample Frequency
 %resample everything to 36k
 ChirpIdeal = resample(ChirpIdeal44, N, D);      %generated chirp 
 ChirpRec = resample(ChirpRec44, N, D);          %chirp recorded through the channel
-% Noise = resample(Noise44, N, D);              %noise recording
+% Noise = resample(Noise44, N, D);                %noise recording
 Signal = resample(Signal44, N, D);              %noisy signal to be filtered
 Original = resample(Original44, N, D);          %Original signal with minimal noise
 
 %block of code below is for live recording
-% Signal = audiorecorder(36000, 16, 1);           %record at 36ksam/s, 16bit, mono
-% Signal.StartFcn = 'disp(''BEGIN'')';            %when recording starts show message
-% Signal.StopFcn = 'disp(''\nSTOP'')';            %when recording ends show message
-% record(Signal, 10);                              %record to Signal for an amount of time
-% input('Press a key AFTER ''STOP'' APPEARS to continue...');     %wait for user input after done recording
-% Signal = getaudiodata(Signal);                  %convert to useable format
+Signal = audiorecorder(36000, 16, 1);           %record at 36ksam/s, 16bit, mono
+Signal.StartFcn = 'disp(''BEGIN'')';            %when recording starts show message
+Signal.StopFcn = 'disp(''STOP'')';              %when recording ends show message
+record(Signal, 10);                             %record to Signal for an amount of time
+input('Press enter AFTER ''STOP''');     %wait for user input after done recording
+Signal = getaudiodata(Signal);                  %convert to useable format
 
 [Length, Channel] = size(Signal);               %determine how many samples in the signal
 
@@ -48,6 +48,13 @@ while Remain > Length           %figure out how many whole segments the chrip
     Remain = Remain - Length;   
 end
 
+% while NoiseRemain > Length           %figure out how many whole segments the chrip 
+%     Count2 = Count2 + 1;          %signal can be divided into
+%     NoiseRemain = NoiseRemain - Length;   
+% end
+
+% NoiseMatrix = zeros(Count2, Length);
+% NoiseVector = zeros(1, Length);
 IChirpBand = zeros(Length, 1);          %make zero vectors
 ChirpMatrix = zeros(Count, Length);
 ChirpVector = zeros(1, Length);
@@ -56,12 +63,29 @@ ChirpBand = zeros(Length, 1);
 Equalize = zeros(Length, 1);
 Final = zeros(Length, 1);
 
+% for jj = 1:Count2
+%     for kk = 1:Length
+%         NoiseMatrix(jj, kk) = Noise(((jj - 1)*Length + kk),1);
+%     end
+% end
+% 
+% for jj = 1:Count2
+%     NoiseVector(1,:) = NoiseVector(1,:) + NoiseMatrix(jj,:);
+% end
+% 
+% NoiseVector(1,:) = NoiseVector(1,:) / Count2;       %average
+% NoiseSpec = fft(NoiseVector, Length);
+% 
+% figure;
+% plot(f, NoiseSpec);
+% title('Nosie Spectrum');
+
     OrigSpec = fft(Original, Length);   %spectrum of Original signal
 
-    figure;
+%     figure;
 %     subplot(2,1,1);
-    plot(f, fftshift(abs(OrigSpec)));
-    title('Original Signal Magnitude');
+%     plot(f, fftshift(abs(OrigSpec)));
+%     title('Original Signal Magnitude');
 %     subplot(2,1,2);
 %     plot(f, fftshift(angle(OrigSpec)));
 %     title('Original Signal Phase');
@@ -95,20 +119,20 @@ Final = zeros(Length, 1);
         end
     end
     
-    figure;
+%     figure;
 %     subplot(2,1,1);
-    plot(f, fftshift(abs(ChirpBand)));
-    title('Bridge Recorded Chirp Magnitude');
+%     plot(f, fftshift(abs(ChirpBand)));
+%     title('Bridge Recorded Chirp Magnitude');
 %     subplot(2,1,2);
 %     plot(f, fftshift(angle(ChirpBand)));
 %     title('Classroom Recorded Chirp Phase');
     
     SignalSpec = fft(Signal, Length);
     
-    figure;
+%     figure;
 %     subplot(2,1,1);
-    plot(f, fftshift(abs(SignalSpec))); %plot signal Magnitude
-    title('Bridge Noisy Signal Magnitude');
+%     plot(f, fftshift(abs(SignalSpec))); %plot signal Magnitude
+%     title('Bridge Noisy Signal Magnitude');
 %     subplot(2,1,2);
 %     plot(f, fftshift(angle(SignalSpec))); %plot signal Magnitude
 %     title('Noisy Signal Phase');
@@ -126,10 +150,10 @@ Final = zeros(Length, 1);
             end
         end
     
-    figure;
+%     figure;
 %     subplot(2,1,1);
-    plot(f, fftshift(abs(IChirpBand)));
-    title('Ideal Chirp Magnitude');
+%     plot(f, fftshift(abs(IChirpBand)));
+%     title('Ideal Chirp Magnitude');
 %     subplot(2,1,2);
 %     plot(f, fftshift(angle(IChirpBand)));
 %     title('Ideal Chirp Phase');
@@ -152,10 +176,10 @@ for jj = 1:Length
 %     end
 end
 
-figure
+% figure
 % subplot(2,1,1);
-plot(f, fftshift(abs(Bandpass)));   %plot Filtered Magnitudes
-title('Classroom Signal Bandpassed Magnitude');
+% plot(f, fftshift(abs(Bandpass)));   %plot Filtered Magnitudes
+% title('Classroom Signal Bandpassed Magnitude');
 % subplot(2,1,2);
 % plot(f, fftshift(angle(Bandpass)));   %plot Filtered Magnitudes
 % title('Signal Bandpassed Phase');
@@ -175,10 +199,10 @@ for jj = 1:Length
     Final(jj, 1) = Final(jj, 1) / 30;
 end
 
-figure;
+% figure;
 % subplot(2,1,1);
-plot(f, fftshift(abs(Final)));
-title('Signal Magnitude Spectrum equalized');
+% plot(f, fftshift(abs(Final)));
+% title('Signal Magnitude Spectrum equalized');
 % subplot(2,1,2);
 % plot(f, fftshift(angle(Final)));
 % title('Signal Phase Spectrum equalized');
@@ -188,15 +212,38 @@ y = ifft(Bandpass, 'symmetric');    %inverse fft of filtered signal
 x = ifft(Final, 'symmetric');
 
 % sound(Original, Fs);
-% sound(z, Fs);       %Play noisy signal
+sound(z, Fs);       %Play noisy signal
 % sound(y, Fs);       %Play filtered signal
 % sound(x, Fs);       %Play filtered signal
 
+% Remove noise below the mean value of the siganl fft.
+fscnfft=fft(y,Length);
+fft_values=fscnfft;
+mean_value = mean(abs(fscnfft));
+threshold = 1*mean_value; % Fine-tune this
+fft_values(abs(fft_values) < threshold)=0*fft_values(abs(fft_values) < threshold)/1000 ;
+fft_values(abs(fft_values) > threshold)=fft_values(abs(fft_values) > threshold)*1;
+filtered_samples = ifft(fft_values,Length);
 
-FilePointer = 'C:\Users\KF5RCL\Desktop\MyStuff\Classes\Discrete\DiscreteFinalProject\NoisySignal.wav';
-audiowrite(FilePointer, z, Fs);
-FilePointer = 'C:\Users\KF5RCL\Desktop\MyStuff\Classes\Discrete\DiscreteFinalProject\FilteredSignal.wav';
-audiowrite(FilePointer, y, Fs);
+% [fscn, fscnfft, y20] = allSpec( y,fs0 );
+% title('Recovery AfterBandpass ');
+% 
+% [fscn, fscnfft, y20] = allSpec( y,fs0 );
+% title('Recovery AfterBandpass ');
+% [fscn, fscnfft, y20] = allSpec(filtered_samples,fs0 );
+% title('Recovery After Filter ');
+% 
+% sound(z, Fs);       %Play noisy signal
+sound(y, Fs);  %Play bandpass signal
+% input('Press enter to continue...')
+% sound(filtered_samples, Fs);       %Play filtered signal
+% sound(x, Fs);       %Play filtered signal
+
+
+% FilePointer = 'C:\Users\KF5RCL\Desktop\MyStuff\Classes\Discrete\DiscreteFinalProject\ClassroomNoisySignal.wav';
+% audiowrite(FilePointer, z, Fs);
+% FilePointer = 'C:\Users\KF5RCL\Desktop\MyStuff\Classes\Discrete\DiscreteFinalProject\ClassroomFilteredSignal.wav';
+% audiowrite(FilePointer, y, Fs);
 
 disp('DONE');       
 
